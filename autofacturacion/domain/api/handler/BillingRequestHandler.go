@@ -10,6 +10,7 @@ import (
 	"portal_autofacturacion/models"
 	"portal_autofacturacion/utils"
 	"strings"
+	"time"
 )
 
 /*
@@ -61,6 +62,12 @@ func (h *BillingHistoryHandler) CreateBillingRequest(
 		log.Printf("[HTTP][ERROR] DTO inválido err=%v", err)
 		utils.WriteErr(w, "", fmt.Errorf("Invalid DTO"), http.StatusConflict)
 		return
+	}
+	if req.Fecha != "" {
+		if _, err := time.Parse("02/01/2006", req.Fecha); err != nil {
+			utils.WriteErr(w, "", fmt.Errorf("fecha invalida, use formato dd/mm/aaaa"), http.StatusBadRequest)
+			return
+		}
 	}
 	fmt.Println("CAMPOS ::::::::::::::: ::::::::: ", req)
 	//  SOLO crea la factura
