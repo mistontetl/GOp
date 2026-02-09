@@ -19,6 +19,7 @@ type Payload struct {
 	Total       float64 `json:"t"`
 	RFC         string  `json:"r"`
 	Email       string  `json:"e"`
+	Fecha       string  `json:"d"`
 }
 
 type InvoiceTracking struct {
